@@ -5,65 +5,64 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Meta Number Sheet</title>
 <style>
-:root{--bg:#f4f6f5;--card:#fff;--ink:#16211c;--mute:#6b7a73;--line:#e2e8e5;--wa:#1faa59;--wa-d:#168a46;--danger:#d64545}
-@media(prefers-color-scheme:dark){:root{--bg:#0f1512;--card:#17201b;--ink:#e8f0ec;--mute:#8fa097;--line:#26332c;--wa:#2fcf73;--wa-d:#25b862;--danger:#ff6b6b}}
-*{box-sizing:border-box}
+:root{--bg:#f3f6f4;--card:#fff;--ink:#14201a;--mute:#6a7a72;--line:#e1e8e4;--wa:#1faa59;--wa-d:#168a46;--wa-t:#0f7a3d;--danger:#d64545;--chip:#eaf5ee}
+@media(prefers-color-scheme:dark){:root{--bg:#0e1411;--card:#16201a;--ink:#e8f0ec;--mute:#8da096;--line:#24322a;--wa:#2fcf73;--wa-d:#25b862;--wa-t:#4be08a;--danger:#ff7070;--chip:#1d2c23}}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.4 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
-.wrap{max-width:900px;margin:0 auto;padding:20px 16px 60px}
-h1{font-size:22px;margin:0 0 4px}
-.sub{color:var(--mute);margin:0 0 16px;font-size:13px}
-.bar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;position:sticky;top:0;background:var(--bg);padding:8px 0;z-index:2}
-input[type=search]{flex:1;min-width:180px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink);font:inherit}
-button{padding:10px 14px;border:1px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink);font:inherit;cursor:pointer}
-button:hover{border-color:var(--wa)}
-button.pri{background:var(--wa);border-color:var(--wa);color:#fff;font-weight:600}
-.card{background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden}
-table{width:100%;border-collapse:collapse}
-th{text-align:left;font-size:12px;text-transform:uppercase;letter-spacing:.04em;color:var(--mute);padding:10px 12px;border-bottom:1px solid var(--line)}
-td{padding:4px 8px;border-bottom:1px solid var(--line);vertical-align:middle}
-tr:last-child td{border-bottom:0}
-td.id{color:var(--mute);width:48px;padding-left:12px}
-[contenteditable]{padding:8px 6px;border-radius:6px;outline:none;min-height:34px}
-[contenteditable]:focus{background:color-mix(in srgb,var(--wa) 12%,transparent);box-shadow:0 0 0 2px var(--wa)}
-td.num{width:230px;white-space:nowrap}
-.numwrap{display:flex;align-items:center;gap:6px}
-.numwrap [contenteditable]{flex:1;font-variant-numeric:tabular-nums}
-a.wa{display:inline-flex;align-items:center;gap:5px;padding:6px 10px;border-radius:8px;background:var(--wa);color:#fff;text-decoration:none;font-size:13px;font-weight:600}
-a.wa:hover{background:var(--wa-d)}
-a.wa.off{background:var(--line);color:var(--mute);pointer-events:none}
-td.act{width:84px;text-align:center;white-space:nowrap}
-.ed{border:0;background:none;color:var(--mute);padding:6px;font-size:16px}
-.ed:hover{color:var(--wa)}
-.numtxt{cursor:pointer;color:var(--wa-d);text-decoration:underline;text-decoration-color:transparent}
-.numtxt:hover{text-decoration-color:currentColor}
-tr.editing [contenteditable]{background:color-mix(in srgb,var(--wa) 8%,transparent);box-shadow:inset 0 0 0 1px var(--line);cursor:text}
-tr.editing .numtxt{color:var(--ink);text-decoration:none}
-tr.editing a.wa{opacity:.4;pointer-events:none}
-.del{border:0;background:none;color:var(--mute);padding:6px;font-size:16px}
-.del:hover{color:var(--danger)}
-.empty{padding:30px;text-align:center;color:var(--mute)}
-.tip{color:var(--mute);font-size:12px;margin-top:10px}
-@media(max-width:560px){td.num{width:auto}.numwrap{flex-direction:column;align-items:stretch}th:first-child,td.id{display:none}}
+.wrap{max-width:860px;margin:0 auto;padding:18px 14px 70px}
+h1{font-size:24px;margin:0 0 4px;letter-spacing:-.01em}
+.sub{color:var(--mute);margin:0 0 14px;font-size:13px}
+.bar{position:sticky;top:0;z-index:5;background:var(--bg);padding:8px 0 10px;display:grid;grid-template-columns:1fr auto;gap:8px}
+.bar input{grid-column:1/-1}
+input[type=search]{width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:var(--card);color:var(--ink);font:inherit;font-size:16px}
+input[type=search]:focus{outline:2px solid var(--wa);border-color:transparent}
+.btns{display:flex;gap:8px;grid-column:1/-1}
+button{white-space:nowrap;padding:10px 12px;border:1px solid var(--line);border-radius:12px;background:var(--card);color:var(--ink);font:inherit;cursor:pointer}
+button.pri{background:var(--wa);border-color:var(--wa);color:#fff;font-weight:600;flex:1.4}
+.btns button:not(.pri){flex:1}
+.list{display:flex;flex-direction:column;gap:10px}
+.row{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px;display:grid;gap:10px;grid-template-columns:1fr auto;grid-template-areas:"top top" "num chat"}
+.top{grid-area:top;display:flex;align-items:flex-start;gap:10px}
+.idb{flex:none;min-width:34px;height:26px;padding:0 8px;border-radius:8px;background:var(--chip);color:var(--wa-t);font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;margin-top:5px}
+.name{flex:1;font-weight:600;font-size:16px;word-break:break-word}
+.icons{flex:none;display:flex;gap:2px}
+.ib{width:36px;height:36px;padding:0;border:0;background:none;font-size:17px;color:var(--mute);border-radius:10px;display:flex;align-items:center;justify-content:center}
+.ib:hover,.ib:active{background:var(--chip);color:var(--wa-t)}
+.ib.del:hover,.ib.del:active{color:var(--danger)}
+.num{grid-area:num;display:flex;align-items:center;font-size:18px;font-variant-numeric:tabular-nums;letter-spacing:.02em;font-weight:500}
+.numtxt{cursor:pointer;color:var(--wa-t)}
+a.wa{grid-area:chat;display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:10px 18px;border-radius:12px;background:var(--wa);color:#fff;text-decoration:none;font-weight:700;font-size:15px;white-space:nowrap}
+a.wa:active{background:var(--wa-d)}
+a.wa.off{background:var(--chip);color:var(--mute);pointer-events:none}
+[contenteditable]{outline:none;border-radius:8px;padding:2px 4px;margin:-2px -4px;min-width:40px}
+.row.editing{border-color:var(--wa);box-shadow:0 0 0 2px color-mix(in srgb,var(--wa) 25%,transparent)}
+.row.editing [contenteditable]{background:color-mix(in srgb,var(--wa) 12%,transparent);cursor:text;padding:6px 8px;margin:-6px -8px;box-shadow:inset 0 0 0 1px var(--wa)}
+.row.editing .numtxt{color:var(--ink)}
+.row.editing a.wa{opacity:.35;pointer-events:none}
+.row.editing .ib.ed{background:var(--wa);color:#fff}
+.empty{padding:40px;text-align:center;color:var(--mute)}
+.tip{color:var(--mute);font-size:12px;margin-top:16px}
+@media(min-width:700px){
+  .bar{grid-template-columns:1fr auto}.bar input{grid-column:auto}.btns{grid-column:auto}
+  .row{grid-template-columns:1fr 200px auto;grid-template-areas:"top num chat";align-items:center}
+}
 </style>
 </head>
 <body>
 <div class="wrap">
   <h1>Meta Number Sheet</h1>
-  <p class="sub"><span id="count"></span> · Click a number (or the green <b>Chat</b> button) to open WhatsApp. Press ✎ on a row to edit it, ✓ when done.</p>
+  <p class="sub"><span id="count"></span> · Tap a number or <b>Chat</b> to open WhatsApp. Tap ✎ to edit a row.</p>
   <div class="bar">
     <input type="search" id="q" placeholder="Search name or number…">
-    <button class="pri" id="add">+ Add row</button>
-    <button id="csv">Export CSV</button>
-    <button id="reset" title="Discard your edits and reload the original list">Reset</button>
+    <div class="btns">
+      <button class="pri" id="add">+ Add row</button>
+      <button id="csv">Export CSV</button>
+      <button id="reset">Reset</button>
+    </div>
   </div>
-  <div class="card">
-    <table>
-      <thead><tr><th>#</th><th>Name</th><th>Meta Number</th><th></th></tr></thead>
-      <tbody id="tb"></tbody>
-    </table>
-    <div class="empty" id="empty" hidden>No matches</div>
-  </div>
-  <p class="tip">Edits are saved in this browser only. Use Export CSV to keep a copy. Press Enter or ✓ to finish editing. Numbers with 10 digits are treated as Indian (+91). Rows without a number have a disabled button.</p>
+  <div class="list" id="list"></div>
+  <div class="empty" id="empty" hidden>No matches</div>
+  <p class="tip">Edits are saved in this browser only. Use Export CSV to keep a copy. Press ✓ or Enter to finish editing. 10-digit numbers are treated as Indian (+91). Rows without a number have a disabled Chat button.</p>
 </div>
 <script>
 const DEFAULT_DATA = [{"id": 1, "name": "New Amar Pharmaceuticals Pvt Ltd", "num": "919028599294"}, {"id": 2, "name": "Bengal Syndicate", "num": "918100372727"}, {"id": 3, "name": "BGS Pharma Pvt. Ltd.", "num": "918100354545"}, {"id": 4, "name": "Tejas Pharma", "num": "917980066405"}, {"id": 5, "name": "Parag Medical Stores", "num": "918989242989"}, {"id": 6, "name": "Test B2B Account", "num": ""}, {"id": 7, "name": "Kaushal Pharmaceuticals Private Limited", "num": "919038911111"}, {"id": 8, "name": "CSquare Integtration  Demo", "num": ""}, {"id": 9, "name": "Janagen Pharmacy Moosaram", "num": "919859854005"}, {"id": 10, "name": "New Mahalaxmi Cosmetics", "num": "918329922461"}, {"id": 11, "name": "Nitin Agency", "num": "919028131973"}, {"id": 12, "name": "Utsav Pune", "num": "919665534500"}, {"id": 13, "name": "Accurate Soft", "num": "918877557700"}, {"id": 14, "name": "Medica", "num": ""}, {"id": 15, "name": "Hariramani Distributors", "num": "919685225784"}, {"id": 16, "name": "Test B2B Account", "num": "15556470876"}, {"id": 18, "name": "Sri Venkateswara Galaxy Medical Distributors Pvt Ltd", "num": "917013340799"}, {"id": 20, "name": "InfoSoft", "num": ""}, {"id": 21, "name": "Acclera", "num": "918877557700"}, {"id": 22, "name": "Easyac Software", "num": "919238575507"}, {"id": 23, "name": "Entero Healthcare Solutions Limited", "num": ""}, {"id": 24, "name": "Agrawal Medical Agency", "num": "917024480818"}, {"id": 25, "name": "Growthaccel Future Technologies LLP", "num": "919119526111"}, {"id": 26, "name": "Premium Foods", "num": "918552929666"}, {"id": 27, "name": "MEDMG Private Limited", "num": ""}, {"id": 28, "name": "Sanjay Medical Store", "num": "917587885158"}, {"id": 29, "name": "Keimed Group", "num": ""}, {"id": 30, "name": "Shyam & Sons", "num": "919216015288"}, {"id": 31, "name": "Om Sukhibhava Medicals", "num": "918341501286"}, {"id": 32, "name": "Zenin Pharmaceuticals", "num": "918500284337"}, {"id": 45, "name": "Mr and Mrs Idly", "num": "919657760674"}, {"id": 46, "name": "Medi Health", "num": ""}, {"id": 47, "name": "Pharmacy Pro", "num": "919594935199"}, {"id": 48, "name": "ERP Test Account", "num": ""}, {"id": 54, "name": "Shivanitin Agencies", "num": "917060041279"}, {"id": 55, "name": "GA Mall", "num": ""}, {"id": 64, "name": "Vasu Group", "num": "919849495556"}, {"id": 67, "name": "Pharma B2C Products", "num": ""}, {"id": 75, "name": "Tinbro Bharat Medical Store", "num": "918264116647"}, {"id": 91, "name": "Yogiram Distributors Pvt Ltd", "num": "919789492339"}, {"id": 100, "name": "Resturant One", "num": "919657760674"}, {"id": 113, "name": "New Mahalaxmi Agency", "num": "917666598262"}, {"id": 122, "name": "Ayantram Private Limited", "num": ""}, {"id": 123, "name": "Hindustan Medical Private Limited", "num": ""}, {"id": 129, "name": "Paramount Medical Agencies", "num": "918333905214"}, {"id": 145, "name": "Rushab Surgicals", "num": "919834027367"}, {"id": 146, "name": "Kundan Distributors Private Limited", "num": "918956913252"}, {"id": 152, "name": "Shopify Test", "num": ""}, {"id": 153, "name": "Malu Medico Private Limited", "num": "919209962131"}, {"id": 303, "name": "PetPooja", "num": ""}, {"id": 339, "name": "Sri Satya Rajeswari Agencies", "num": "919052644222"}, {"id": 461, "name": "Tally Test", "num": ""}, {"id": 480, "name": "Arihant Chemist LLP", "num": "918956582040"}, {"id": 487, "name": "BGS seller1", "num": ""}, {"id": 518, "name": "EasySol", "num": "919999125775"}, {"id": 520, "name": "Mishra Medical Agencies", "num": "919589990366"}, {"id": 541, "name": "Tirupati Medicose", "num": "919752844114"}, {"id": 545, "name": "Rada Medisolutions Private Limited", "num": "919345679781"}, {"id": 548, "name": "Guru Surgico", "num": "919203652020"}, {"id": 625, "name": "Pharmacy Ultimate", "num": "918877557700"}, {"id": 627, "name": "M/s. National Pharmaceuticals", "num": "6390008525"}, {"id": 628, "name": "City Distributors", "num": "918800486060"}, {"id": 630, "name": "Palod Distributors - HO", "num": "919226829639"}, {"id": 640, "name": "xyz", "num": ""}, {"id": 641, "name": "Sunnyco", "num": "919899788713"}, {"id": 646, "name": "Shree Shyam Mediways Private Limited", "num": "917011605083"}, {"id": 652, "name": "Sudhir Chemist", "num": "919141249000"}, {"id": 656, "name": "Universal Lifescience", "num": "919326005430"}, {"id": 667, "name": "Palepu Pharma Distributors Private Limited Coimbatore", "num": "916385146409"}, {"id": 669, "name": "Anand Medilink Private Limited", "num": "917972183953"}, {"id": 705, "name": "Kyal Associates", "num": "919078046222"}, {"id": 725, "name": "R K Pharma", "num": "919039036545"}, {"id": 733, "name": "ES Retail", "num": ""}, {"id": 742, "name": "Atreja Healthcare Solutions Private Limited", "num": "919266027950"}, {"id": 743, "name": "G.S.Pharmaceutical Distributors Pvt Ltd", "num": "919266027924"}, {"id": 744, "name": "Chhabra Healthcare Solutions Private Limited", "num": "919266027949"}, {"id": 745, "name": "Calcutta Medisolutions Private Limited", "num": ""}, {"id": 747, "name": "Novacare Healthcare Solutions Pvt Ltd", "num": ""}, {"id": 748, "name": "Avenues Pharma Distributors Private Limited", "num": "919266027945"}, {"id": 749, "name": "Vasavi Medicare Solutions Pvt Ltd", "num": ""}, {"id": 750, "name": "Barros Enterprises Pvt Ltd", "num": ""}, {"id": 751, "name": "Getwell Medicare Solution Pvt. Ltd.", "num": ""}, {"id": 752, "name": "Jaggi Enterprises Pvt Ltd", "num": "919266027939"}, {"id": 753, "name": "Ujjain Maheshwari Pharma Distributors Pvt Ltd", "num": ""}, {"id": 754, "name": "Millennium Medisolutions Private Limited", "num": "919266027938"}, {"id": 755, "name": "Swami Medisolutions Pvt Ltd", "num": "919266027928"}, {"id": 756, "name": "New Rrpd Pvt Ltd", "num": ""}, {"id": 757, "name": "Svs Lifesciences Pvt Ltd", "num": "919266027929"}, {"id": 758, "name": "Rsm Pharma Pvt Ltd", "num": ""}, {"id": 759, "name": "Sree Venkateshwara Medisolutions Pvt Ltd", "num": "919266027930"}, {"id": 760, "name": "Saurashtra Medisolutions Pvt. Ltd.", "num": ""}, {"id": 761, "name": "Svmed Solutions Private Limited", "num": ""}, {"id": 762, "name": "Sesha Balajee Medisolutions Pvt. Ltd.", "num": "919266027933"}, {"id": 763, "name": "Srinivasa Lifecare Private Limited", "num": "919266027932"}, {"id": 764, "name": "Chethana Pharma Private Limited", "num": ""}, {"id": 765, "name": "Gourav Medical Agencies Pvt.Â Ltd.", "num": "919266027940"}, {"id": 767, "name": "Galaxystar Pharma Distributors Private Limited", "num": "919266027947"}, {"id": 768, "name": "Entero R.S. Enterprises Private Limited", "num": "9266027942"}, {"id": 777, "name": "Aagam Drug House Pvt Ltd", "num": "919552553600"}, {"id": 2189, "name": "Zenith Enzymatic Drugs Pvt.Ltd", "num": "919822775533"}, {"id": 2268, "name": "Arihant Medico", "num": "918830802625"}, {"id": 2351, "name": "Meher Lifecare Pvt.ltd", "num": "918657063598"}, {"id": 2405, "name": "Kyal Agencies Private Limited", "num": "919078248222"}, {"id": 2483, "name": "SS Plus Pharma", "num": "917769818286"}, {"id": 2528, "name": "Valsons", "num": "919403884686"}, {"id": 2786, "name": "57 Facets", "num": ""}, {"id": 2807, "name": "Sai Krishna Medical Corporation", "num": "917075085707"}, {"id": 2819, "name": "Chinar Pharma", "num": "919899742686"}, {"id": 2820, "name": "Modi Medico", "num": "919028851992"}, {"id": 2822, "name": "Naveen Agencies", "num": "916399235175"}, {"id": 2823, "name": "Guninaa Pharmaceuticals Private Limited", "num": "918979979366"}, {"id": 2918, "name": "K.S Pharma Retails Private Limited", "num": "919872992229"}, {"id": 3115, "name": "Vardhman Medisales Pvt  Ltd", "num": "919187028585"}, {"id": 3233, "name": "Rathi Atithi Bhawan", "num": "918630807261"}, {"id": 3253, "name": "Kluster Techno Solutions", "num": ""}, {"id": 3255, "name": "Reliable Software", "num": ""}, {"id": 3471, "name": "Ameer Cinemas", "num": "918639773443"}, {"id": 3475, "name": "Vardhman Medisales - Lalbagh (SOUTH)", "num": "919187028585"}, {"id": 3476, "name": "Vardhman Medisales - Yeshwanthpur (NORTH)", "num": "919187028585"}, {"id": 3477, "name": "Vardhman Medisales - Banaswadi (EAST)", "num": "919187028585"}, {"id": 3478, "name": "Vardhman Medisales - Belagavi", "num": "919187028585"}, {"id": 3479, "name": "Vardhman Medisales - Shivamogga", "num": "919187028585"}, {"id": 3480, "name": "Vardhman Medisales - Mysuru", "num": "919187028585"}, {"id": 3481, "name": "Vardhman Medisale - Mangaluru", "num": "919187028585"}, {"id": 3482, "name": "Western Healthcare Solutions Pvt. Ltd", "num": "919266027920"}, {"id": 3484, "name": "Garg Surgicare Industries LLP", "num": "919667014555"}, {"id": 3511, "name": "Kyal Agencies Universal Private Limited", "num": "919078246222"}, {"id": 3532, "name": "K.S Pharma Retails Private Limited Fatehgarh", "num": "919872992229"}, {"id": 3546, "name": "Millennium Medisolutions Private Limited Panchkula", "num": "919266027922"}, {"id": 3552, "name": "Universal Lifescience Jaipur", "num": "919326005430"}, {"id": 3553, "name": "Universal Lifescience Ahemdabad", "num": "919326005430"}, {"id": 3554, "name": "Universal Lifescience Sri Nagar", "num": "919326005430"}, {"id": 3555, "name": "Universal Lifescience Amritsar", "num": "919326005430"}, {"id": 3556, "name": "Universal Lifescience Hydrabad", "num": "919326005430"}, {"id": 3563, "name": "Focus Medisales - Kengeri (WEST)", "num": "919187028585"}, {"id": 3564, "name": "Focus Medisales - Kudlu Gate (SOUTH)", "num": "919187028585"}, {"id": 3565, "name": "Focus Medisales - Yeshwanthpur (NORTH)", "num": "919187028585"}, {"id": 3566, "name": "Focus Medisales - Hoodi", "num": "919187028585"}, {"id": 3579, "name": "K.S Pharma Retails Private Limited Panchkula", "num": "919872992229"}, {"id": 3628, "name": "Millennium Medisolutions Private Limited Dehradun", "num": "919266027923"}, {"id": 3629, "name": "Palod Distributors - Local", "num": "919226829639"}, {"id": 3647, "name": "Patwari Pharma Private Limited Hyderabad", "num": "918978907027"}, {"id": 3648, "name": "Apulki Medical Center", "num": "917028666922"}, {"id": 3680, "name": "Anand Chemiceutics Private Limited", "num": ""}, {"id": 3704, "name": "Garg International", "num": "919958428458"}, {"id": 3713, "name": "The Acrux Surgical", "num": "919667014555"}, {"id": 3717, "name": "Mr & Mrs Idly Main Account", "num": ""}, {"id": 3731, "name": "Ocean Pharmacy", "num": "918920151760"}, {"id": 3821, "name": "Satvik Pharma", "num": "919730050077"}, {"id": 4462, "name": "Presha Pharma Bhiwandi", "num": "918452996658"}, {"id": 4614, "name": "Sri Gupta Drug Mart", "num": "919966039125"}, {"id": 4615, "name": "Jindal Chemist", "num": "918851257336"}, {"id": 4671, "name": "New Amar Pharmaceuticals Pvt Ltd Sadashiv peth", "num": "919028599294"}, {"id": 4750, "name": "Sangram Enterprises Private Limited", "num": "917774977090"}, {"id": 4770, "name": "Garg Store", "num": "919625568038"}, {"id": 4838, "name": "Presha Pharma Kalyan East", "num": "918452996658"}, {"id": 4842, "name": "Presha Pharma Goregaon East", "num": "918452996658"}, {"id": 4980, "name": "Tarun Enterprises", "num": "918308221234"}, {"id": 5002, "name": "Pharmaplex Enterprises LLP", "num": ""}, {"id": 5102, "name": "Citi Healthworld", "num": "919667664853"}, {"id": 5106, "name": "Aggarwal Mediways", "num": "919953054090"}, {"id": 5117, "name": "Vitamed", "num": ""}, {"id": 5119, "name": "Arnav Pharmaceuticals India Private Limited", "num": "917507559906"}, {"id": 5227, "name": "S Parikh Pharma Private Limited", "num": "918356833400"}, {"id": 5247, "name": "Mahalaxmi Medico", "num": "917588053311"}, {"id": 5255, "name": "Chaitali Distributors", "num": ""}, {"id": 5256, "name": "Human Care Pharmaceutical", "num": "917045606606"}, {"id": 5267, "name": "Pharma B2C", "num": ""}, {"id": 5360, "name": "Samarth Software", "num": "919049021595"}, {"id": 5372, "name": "Jai Balaji Trading", "num": "919220660030"}, {"id": 5383, "name": "Asian Pharma", "num": "918796550157"}, {"id": 5413, "name": "Atul Mini Market", "num": "917559171397"}, {"id": 5433, "name": "Aaru Pharma", "num": ""}, {"id": 5447, "name": "Shreenivas Softwares And Consultants", "num": "918217421771"}, {"id": 5601, "name": "Patwari Pharma Private Limited Pune", "num": "918180954828"}, {"id": 5669, "name": "Nagpal Medical Store", "num": "919625994104"}, {"id": 5712, "name": "Ambika Pharma", "num": ""}, {"id": 5739, "name": "Palepu Pharma Distributors Private Limited Chennai", "num": "919940073187"}, {"id": 5756, "name": "Pharma Ultimate", "num": "919845689272"}, {"id": 5760, "name": "Scalysis", "num": ""}, {"id": 5764, "name": "Tapadiya Distributors", "num": ""}, {"id": 5785, "name": "GA testing", "num": ""}, {"id": 5881, "name": "Aggarwal Medicos", "num": "919312629253"}, {"id": 5900, "name": "Medicine Hub", "num": "917065654558"}, {"id": 5919, "name": "Cosmetics", "num": "918877557700"}, {"id": 5921, "name": "Ator Healthcare", "num": ""}, {"id": 6727, "name": "MAP CHEM PVT LTD", "num": "919819039444"}, {"id": 7415, "name": "Tally Walhekar Enterprises", "num": ""}, {"id": 7711, "name": "Innlife Distributors (I) Private Limited", "num": "919082086587"}, {"id": 11265, "name": "Sai Ganesh Pharma", "num": "918839124002"}];
@@ -72,76 +71,72 @@ let data,editingIdx=-1;
 try{data=JSON.parse(localStorage.getItem(KEY))}catch(e){}
 if(!Array.isArray(data)) data=JSON.parse(JSON.stringify(DEFAULT_DATA));
 const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(data))}catch(e){}};
-const tb=document.getElementById('tb'),q=document.getElementById('q');
+const list=document.getElementById('list'),q=document.getElementById('q');
 const digits=s=>String(s||'').replace(/\D/g,'');
 function waLink(n){let d=digits(n);if(!d)return'';if(d.length===10)d='91'+d;return 'https://wa.me/'+d}
+function setLink(a,n){const l=waLink(n);if(l){a.href=l;a.classList.remove('off')}else{a.removeAttribute('href');a.classList.add('off')}}
+function setEditable(row,on){
+  row.querySelectorAll('[data-f]').forEach(el=>el.contentEditable=on?'true':'false');
+  const b=row.querySelector('.ed');b.textContent=on?'✓':'✎';b.title=on?'Done':'Edit row';
+}
 function render(){
-  const f=q.value.trim().toLowerCase(), fd=digits(f);
-  tb.innerHTML='';
-  let shown=0;
+  const f=q.value.trim().toLowerCase(),fd=digits(f);
+  list.innerHTML='';let shown=0;
   data.forEach((r,i)=>{
-    if(f && !(r.name.toLowerCase().includes(f) || (fd && r.num.includes(fd)))) return;
+    if(f&&!(r.name.toLowerCase().includes(f)||(fd&&r.num.includes(fd))))return;
     shown++;
-    const tr=document.createElement('tr');
-    tr.innerHTML=`<td class="id">${r.id}</td>
-      <td><div contenteditable="false" data-i="${i}" data-f="name" spellcheck="false"></div></td>
-      <td class="num"><div class="numwrap"><div contenteditable="false" class="numtxt" title="Open WhatsApp chat" data-i="${i}" data-f="num" inputmode="tel"></div>
-      <a class="wa" target="_blank" rel="noopener" data-i="${i}">💬 Chat</a></div></td>
-      <td class="act"><button class="ed" data-i="${i}" title="Edit row">✎</button><button class="del" data-i="${i}" title="Delete row">✕</button></td>`;
-    tr.querySelector('[data-f=name]').textContent=r.name;
-    tr.querySelector('[data-f=num]').textContent=r.num;
-    setLink(tr.querySelector('a.wa'),r.num);
-    if(editingIdx===i){tr.classList.add('editing');setEditable(tr,true)}
-    tb.appendChild(tr);
+    const row=document.createElement('div');row.className='row';
+    row.innerHTML=`<div class="top"><span class="idb">#${r.id}</span>
+      <div class="name" contenteditable="false" spellcheck="false" data-i="${i}" data-f="name"></div>
+      <div class="icons"><button class="ib ed" data-i="${i}" title="Edit row">✎</button><button class="ib del" data-i="${i}" title="Delete row">🗑</button></div></div>
+      <div class="num"><span class="numtxt" contenteditable="false" inputmode="tel" data-i="${i}" data-f="num" title="Open WhatsApp chat"></span></div>
+      <a class="wa" target="_blank" rel="noopener">💬 Chat</a>`;
+    row.querySelector('[data-f=name]').textContent=r.name;
+    row.querySelector('[data-f=num]').textContent=r.num||'';
+    if(!r.num)row.querySelector('.numtxt').dataset.empty='1';
+    setLink(row.querySelector('a.wa'),r.num);
+    if(editingIdx===i){row.classList.add('editing');setEditable(row,true)}
+    list.appendChild(row);
   });
   document.getElementById('empty').hidden=shown>0;
   document.getElementById('count').textContent=data.length+' contacts'+(f?` (${shown} shown)`:'');
 }
-function setLink(a,n){const l=waLink(n);if(l){a.href=l;a.classList.remove('off')}else{a.removeAttribute('href');a.classList.add('off')}}
-tb.addEventListener('input',e=>{
-  const el=e.target.closest('[contenteditable]');if(!el)return;
-  const r=data[el.dataset.i];
-  r[el.dataset.f]=el.textContent.trim();
-  if(el.dataset.f==='num') setLink(el.closest('tr').querySelector('a.wa'),r.num);
+function startEdit(row){
+  list.querySelectorAll('.row.editing').forEach(stopEdit);
+  row.classList.add('editing');editingIdx=+row.querySelector('.ed').dataset.i;setEditable(row,true);
+  const n=row.querySelector('[data-f=num]');n.focus();
+  const rg=document.createRange();rg.selectNodeContents(n);rg.collapse(false);const s=getSelection();s.removeAllRanges();s.addRange(rg);
+}
+function stopEdit(row){
+  row.classList.remove('editing');editingIdx=-1;setEditable(row,false);
+  const i=+row.querySelector('.ed').dataset.i;setLink(row.querySelector('a.wa'),data[i].num);
+}
+list.addEventListener('input',e=>{
+  const el=e.target.closest('[data-f]');if(!el)return;
+  data[el.dataset.i][el.dataset.f]=el.textContent.trim();
+  if(el.dataset.f==='num')setLink(el.closest('.row').querySelector('a.wa'),data[el.dataset.i].num);
   save();
 });
-function setEditable(tr,on){
-  tr.querySelectorAll('[data-f]').forEach(el=>el.contentEditable=on?'true':'false');
-  const b=tr.querySelector('.ed');b.textContent=on?'✓':'✎';b.title=on?'Done':'Edit row';
-}
-function startEdit(tr){
-  tb.querySelectorAll('tr.editing').forEach(stopEdit);
-  tr.classList.add('editing');editingIdx=+tr.querySelector('.ed').dataset.i;setEditable(tr,true);
-  const n=tr.querySelector('[data-f=num]');n.focus();
-  const r=document.createRange();r.selectNodeContents(n);r.collapse(false);const sel=getSelection();sel.removeAllRanges();sel.addRange(r);
-}
-function stopEdit(tr){
-  tr.classList.remove('editing');editingIdx=-1;setEditable(tr,false);
-  const i=+tr.querySelector('.ed').dataset.i;
-  setLink(tr.querySelector('a.wa'),data[i].num);
-}
-tb.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();const tr=e.target.closest('tr');if(tr)stopEdit(tr)}});
-tb.addEventListener('paste',e=>{if(e.target.closest('[contenteditable]')){e.preventDefault();document.execCommand('insertText',false,(e.clipboardData.getData('text')||'').replace(/\s+/g,' '))}});
-tb.addEventListener('click',e=>{
+list.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();const r=e.target.closest('.row');if(r)stopEdit(r)}});
+list.addEventListener('paste',e=>{if(e.target.closest('[contenteditable=true]')){e.preventDefault();document.execCommand('insertText',false,(e.clipboardData.getData('text')||'').replace(/\s+/g,' '))}});
+list.addEventListener('click',e=>{
   const d=e.target.closest('.del');
   if(d){if(confirm('Delete this row?')){editingIdx=-1;data.splice(+d.dataset.i,1);save();render()}return}
   const ed=e.target.closest('.ed');
-  if(ed){const tr=ed.closest('tr');tr.classList.contains('editing')?stopEdit(tr):startEdit(tr);return}
+  if(ed){const r=ed.closest('.row');r.classList.contains('editing')?stopEdit(r):startEdit(r);return}
   const n=e.target.closest('.numtxt');
-  if(n&&!n.closest('tr').classList.contains('editing')){const l=waLink(data[n.dataset.i].num);if(l)window.open(l,'_blank','noopener')}
+  if(n&&!n.closest('.row').classList.contains('editing')){const l=waLink(data[n.dataset.i].num);if(l)window.open(l,'_blank','noopener')}
 });
 q.addEventListener('input',()=>{editingIdx=-1;render()});
 document.getElementById('add').onclick=()=>{
-  q.value='';
-  data.push({id:data.reduce((m,r)=>Math.max(m,+r.id||0),0)+1,name:'',num:''});
+  q.value='';data.push({id:data.reduce((m,r)=>Math.max(m,+r.id||0),0)+1,name:'',num:''});
   save();editingIdx=data.length-1;render();
-  const last=tb.querySelector('tr:last-child [data-f=name]');last.focus();last.scrollIntoView({block:'center'});
+  const last=list.lastElementChild.querySelector('[data-f=name]');last.focus();last.scrollIntoView({block:'center'});
 };
 document.getElementById('csv').onclick=()=>{
   const esc=s=>'"'+String(s).replace(/"/g,'""')+'"';
   const csv='Id,Name,Meta Number\n'+data.map(r=>[r.id,esc(r.name),esc(r.num)].join(',')).join('\n');
-  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob(['﻿'+csv],{type:'text/csv'}));
-  a.download='meta_numbers.csv';a.click();
+  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob(['\ufeff'+csv],{type:'text/csv'}));a.download='meta_numbers.csv';a.click();
 };
 document.getElementById('reset').onclick=()=>{
   if(confirm('Discard all edits and restore the original list?')){data=JSON.parse(JSON.stringify(DEFAULT_DATA));editingIdx=-1;save();q.value='';render()}
